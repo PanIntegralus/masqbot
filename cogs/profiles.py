@@ -50,7 +50,7 @@ def setup(client) -> commands.Cog:
 
         conn.commit()
         print('Profile created successfully.')
-        await ctx.reply(f'Profile created successfully! You can start using it writing `{prefix}` at the start of any message.')
+        await ctx.reply(f'Profile created successfully! You can start using it by writing `{prefix}` at the start of any message.')
     
     
     @profiles.command('deleteprofile', 'Deletes an existing profile')
