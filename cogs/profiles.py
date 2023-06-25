@@ -18,9 +18,19 @@ def setup(client) -> commands.Cog:
     )
 
     @profiles.command('createnew', 'Create a new profile')
-    async def createnew(ctx: commands.CommandContext, name: str, imageurl: str, prefix: str):
+    async def createnew(ctx: commands.CommandContext, name: str, *, imageurl: str, prefix: str):
         user_id = ctx.author.id
+        if not name.startswith('"'):
+            await ctx.reply(f'The name must be enclosed in quotation marks (for example: "Johnny John").')
+            return
+
+        name = name.strip('"')
+        prefix = prefix.replace(" ", "", 1)
+        
         print(user_id)
+        print(name)
+        print(imageurl)
+        print(prefix)
 
         # Check if profile with same name or prefix already exist
         cursor = conn.execute('SELECT * FROM profiles WHERE user_id = ? AND (name = ? OR prefix = ?)', (user_id, name, prefix))
@@ -91,5 +101,5 @@ def setup(client) -> commands.Cog:
             await message.delete()
             messageRemainder = content[len(profile[2])+1:]
             await message.channel.send(messageRemainder, masquerade=voltage.MessageMasquerade(profile[0], profile[1]))
-
+            
     return profiles
