@@ -27,10 +27,6 @@ def setup(client) -> commands.Cog:
         name = name.strip('"')
         prefix = prefix.replace(" ", "", 1)
         
-        print(user_id)
-        print(name)
-        print(imageurl)
-        print(prefix)
 
         # Check if profile with same name or prefix already exist
         cursor = conn.execute('SELECT * FROM profiles WHERE user_id = ? AND (name = ? OR prefix = ?)', (user_id, name, prefix))
